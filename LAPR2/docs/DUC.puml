@@ -1,0 +1,36 @@
+@startuml
+
+usecase UC1 as "UC1 - Register Organization"
+usecase UC2 as "UC2 - Register Freelancer"
+usecase UC3 as "UC3 - Create Task"
+usecase UC4 as "UC4 - Create Payment Transition"
+usecase UC5 as "UC5 - Define Automatic Payment Time"
+usecase UC6 as "UC6 - Load File"
+usecase UC7 as "UC7 - Make Automatic Payment"
+usecase UC8 as "UC8 - Show Freelancer Statistics"
+usecase UC9 as "UC9 - Show General Statistics"
+usecase UC10 as "UC10 - Notify Delays To Freelance"
+
+actor "Administrator" as ADM
+actor "Manager" as MAN
+actor "Collaborator" as CO
+actor "Time/Clock" as TIME
+
+left to right direction
+
+ADM -->(UC1)
+ADM -->(UC9)
+
+MAN -->(UC5)
+MAN -->(UC6)
+MAN -->(UC8)
+
+CO -->(UC2)
+CO -->(UC3)
+CO -->(UC4)
+CO -->(UC8)
+
+TIME -->(UC7)
+TIME -->(UC10)
+
+@enduml

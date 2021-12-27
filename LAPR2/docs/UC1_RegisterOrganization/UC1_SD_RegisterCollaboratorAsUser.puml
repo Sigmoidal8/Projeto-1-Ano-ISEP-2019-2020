@@ -1,0 +1,48 @@
+@startuml
+title UC1_SD_RegisterCollaboratorAsUser
+autonumber
+
+participant "ro:Register\nOrganizations" as ORGS
+participant "colab:Collaborator" as COLAB
+participant ":Platform" as PLAT
+participant "alg:ExternalAlgorithmGeneratePwd" as ALG << interface >>
+participant "aut:Autorization\nFacade" as AUT
+
+note over of ALG
+ It is an instance of any class that
+ implements this interface.
+end note
+
+ORGS -> ORGS: registerCollaboratorAsUser(colab)
+activate ORGS
+
+ORGS -> COLAB: name = getName()
+activate COLAB
+deactivate COLAB
+ORGS -> COLAB: email = getEmail()
+activate COLAB
+deactivate COLAB
+
+ORGS -> PLAT : alg=ExternalAlgorithmGeneratePwd()
+activate PLAT
+deactivate PLAT
+
+ORGS -> ALG: pwd = generatePassword(name, email)
+activate ALG
+deactivate ALG
+
+ORGS -> PLAT : aut = getAutorizationFacade()
+activate PLAT
+deactivate PLAT
+
+ORGS -> AUT: registerUserWithRole(name,email,pwd,"Collaborator")
+activate AUT
+deactivate AUT
+
+
+ORGS -> ORGS: sendPwd(email, pwd)
+activate ORGS
+deactivate ORGS
+
+deactivate ORGS
+@enduml

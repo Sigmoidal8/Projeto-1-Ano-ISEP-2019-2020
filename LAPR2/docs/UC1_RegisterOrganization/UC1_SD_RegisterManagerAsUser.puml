@@ -1,0 +1,48 @@
+@startuml
+title UC1_SD_RegisterManagerAsUser
+autonumber
+
+participant "ro:Register\nOrganizations" as ORGS
+participant "man:Manager" as MAN
+participant ":Platform" as PLAT
+participant "alg:ExternalAlgorithmGeneratePwd" as ALG << interface >>
+participant "aut:Autorization\nFacade" as AUT
+
+note over of ALG
+ It is an instance of any class that
+ implements this interface.
+end note
+
+ORGS -> ORGS: registerManagerAsUser(man)
+activate ORGS
+
+ORGS -> MAN: name = getName()
+activate MAN
+deactivate MAN
+ORGS -> MAN: email = getEmail()
+activate MAN
+deactivate MAN
+
+ORGS -> PLAT : alg=ExternalAlgorithmGeneratePwd()
+activate PLAT
+deactivate PLAT
+
+ORGS -> ALG: pwd = generatePassword(name, email)
+activate ALG
+deactivate ALG
+
+ORGS -> PLAT : aut = getAutorizationFacade()
+activate PLAT
+deactivate PLAT
+
+ORGS -> AUT: registerUserWithRole(name,email,pwd,"Manager")
+activate AUT
+deactivate AUT
+
+
+ORGS -> ORGS: sendPwd(email, pwd)
+activate ORGS
+deactivate ORGS
+
+deactivate ORGS
+@enduml

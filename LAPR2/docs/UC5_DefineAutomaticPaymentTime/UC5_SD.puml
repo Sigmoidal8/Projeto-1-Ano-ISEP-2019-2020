@@ -1,0 +1,79 @@
+@startuml
+autonumber
+
+actor "Manager" as MAN
+participant "DefinePaymentTimeUI" as UI
+participant "DefinePaymentTimeController" as CTRL
+participant "AplicacaoPOT" as _APP
+participant "app\n:AplicacaoPOT" as APP
+participant "sessao\n:SessaoUtilizador" as SESSAO
+participant "c\n:Manager" as GST
+participant ":Plataform" as PLAT
+participant "rorg\n:OrganizationReg" as RORGS
+participant "org\n:Organization" as ORG
+participant "<<abstract>>\ntask:TimerTask" as TIMER
+participant "t:Timer" as T
+
+activate MAN
+MAN -> UI :  initializes the define automatic payment time
+activate UI
+
+UI -> CTRL : org=getOrg()
+activate CTRL
+
+CTRL -> _APP: app = getInstance()
+activate _APP
+deactivate _APP
+
+CTRL -> APP: sessao = getSessaoAtual()
+activate APP
+deactivate APP
+
+CTRL -> SESSAO: email = getEmailUtilizador()
+activate SESSAO
+deactivate SESSAO
+
+CTRL -> PLAT: rorg = getOrganizationReg()
+activate PLAT
+deactivate PLAT
+
+CTRL -> RORGS: org = getOrganizationByEmail(email)
+activate RORGS
+deactivate RORGS
+
+CTRL -> ORG: c=getManager()
+activate ORG
+deactivate ORG
+deactivate CTRL
+UI --> MAN : asks for the data(day of month, time of the day)
+deactivate UI
+
+MAN -> UI : inserts the data
+activate UI
+UI -> CTRL : validateDate(day)
+activate CTRL
+CTRL -> ORG: validateDate(day)
+activate ORG
+deactivate ORG
+deactivate CTRL
+UI --> MAN : validates the date and asks for confirmation
+deactivate UI
+MAN -> UI : confirms
+activate UI
+UI -> CTRL : schedulePayment(day)
+activate CTRL
+CTRL -> ORG: schedulePayment(day)
+activate ORG
+ORG -> TIMER ** : create()
+ORG -> T ** : create()
+ORG -> T : schedule(task, day)
+activate T
+deactivate T
+deactivate ORG
+deactivate CTRL
+UI --> MAN : saves the data and informs the manager of the sucess of the operation
+deactivate UI
+
+deactivate MAN
+
+@enduml

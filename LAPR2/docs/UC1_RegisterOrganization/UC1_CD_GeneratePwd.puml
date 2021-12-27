@@ -1,0 +1,30 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+hide attributes
+
+
+interface ExternalAlgorithmGeneratePwd << interface >>
+{
+ +String generatePassword()
+}
+
+
+class ExternalAlgorithmGeneratePwdAdapter1
+{
++String generatePassword()
+}
+
+class ExternalAlgorithmGeneratePwdApi1
+{
+    +String generatePassword()
+
+}
+
+ExternalAlgorithmGeneratePwd <|.. ExternalAlgorithmGeneratePwdAdapter1
+ExternalAlgorithmGeneratePwdAdapter1 -d->  ExternalAlgorithmGeneratePwdApi1
+
+
+
+
+@enduml

@@ -1,0 +1,30 @@
+@startuml
+hide footbox
+autonumber
+actor "Collaborator" as CO
+
+participant ":System" as SIST
+
+activate CO
+
+CO -> SIST : start freelancer registration
+
+activate SIST
+    SIST --> CO : requests all data (e.g.name, level of expertise, e-mail, NIF, bank acount (IBAN), address, country)
+deactivate SIST
+
+CO -> SIST : Introduce data.
+
+activate SIST
+    SIST --> CO : shows freelancer data and asks for confirmation.
+deactivate SIST
+
+CO -> SIST : confirms.
+
+activate SIST
+    SIST --> CO : informs the colaborator of the success of the operation.
+deactivate SIST
+
+deactivate CO
+
+@enduml

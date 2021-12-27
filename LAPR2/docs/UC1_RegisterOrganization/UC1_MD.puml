@@ -1,0 +1,64 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+
+class Platform{
+
+}
+
+
+class Organization{
+-String name
+-String NIF
+-Long delay
+-Long period
+}
+
+
+class Collaborator {
+ -String name
+ -String email
+}
+
+class User{
+-String name
+-String email
+-String password
+-String role
+}
+
+
+
+class Manager{
+-String name
+-String email
+}
+
+
+
+class ExternalAlgorithmGeneratePwd{
+
+}
+
+
+
+Platform"1" -- "*"Organization : contains >
+Platform"1" -- "1"ExternalAlgorithmGeneratePwd : resort to >
+
+ExternalAlgorithmGeneratePwd"1" -- "*"User : generate password >
+
+
+
+Organization"1" -- "1"Collaborator : contains >
+Organization"1" -- "1"Manager : contains >
+
+Manager"1" -- "1" User : acts like >
+
+Collaborator"*" -- "1" User : acts like >
+
+
+
+
+@enduml

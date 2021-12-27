@@ -1,0 +1,161 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+package UI <<Folder>> {
+  class CreatePaymentTransactionUI
+}
+
+package Controllers <<Folder>> {
+  class CreatePaymentTransactionController
+  class AplicationPOT
+}
+
+package Autorization <<Folder>>{
+class UserSession
+}
+
+
+package Domain <<Folder>> {
+class Platform
+class OrganizationRegister
+class Organization
+class TaskList
+class FreelancerRegister
+class PaymentTransactionList
+class PaymentTransaction
+class ExecutionTask
+class Task
+class Freelancer
+}
+
+
+class CreatePaymentTransactionUI{
+
+}
+
+class CreatePaymentTransactionController{
+--
++getTaskList()
++getFreelancerList()
++newPaymentTransaction(task, freelancer, transid, endDate, delay, briefDescriptionQuality)
++calculatePayment(free, task)
++registerPaymentTransaction()
+}
+
+class AplicationPOT{
+--
++{static} getInstance()
++geAtualrSession()
+}
+
+class UserSession{
+--
++getUserEmail()
+}
+
+class Platform{
++getOrganizationRegister()
++getFreelancerRegister()
+}
+
+class OrganizationRegister{
+--
++getOrganizationByEmail(email)
+}
+
+class Organization{
+-String name
+-String NIF
+--
++getTaskList()
++getPaymentTransactionList()
+}
+
+class TaskList{
+--
++getTaskById(taskId)
+}
+
+class FreelancerRegister{
++getFreelancerList()
+}
+
+class PaymentTransactionList{
+--
++newPaymentTransaction(task, freelancer, transId, endDate, delay, briefDescriptionQuality)
++validatePaymentTransaction(pt)
++addPaymentTransaction(pt)
++registerPaymentTransaction(pt)
+}
+
+class PaymentTransaction {
+-String id
+-Float amout
+-Boolean payed
+--
++PaymentTransaction(task, freelancer, transId, endDate, delay, briefDescriptionQuality)
++calculatePayment(free, task)
+}
+
+class Task{
+-String id
+-String briefDescription
+-Integer timeDuration
+-Float costPerHour
+-String taskCategory
+}
+
+class ExecutionTask{
+-String endDate
+-Float delay
+-String briefDescriptionQuality
+--
++ExecutionTask(endDate, delay, briefDescriptionQuality)
+}
+
+class Freelancer{
+-String id
+-String name
+-String levelOfExpertise
+-String email
+-String NIF
+-String IBAN
+-String adress
+-String country
+}
+
+CreatePaymentTransactionUI .. CreatePaymentTransactionController
+
+CreatePaymentTransactionController .. Platform
+CreatePaymentTransactionController .. OrganizationRegister
+CreatePaymentTransactionController .. FreelancerRegister
+CreatePaymentTransactionController .. AplicationPOT
+CreatePaymentTransactionController .. UserSession
+
+Platform .. OrganizationRegister
+Platform .. FreelancerRegister
+
+OrganizationRegister"1" -- "*"Organization : contains >
+FreelancerRegister"1" -- "0..*"Freelancer : has >
+
+Organization .. TaskList
+Organization .. PaymentTransactionList
+
+PaymentTransactionList"1" -- "*"PaymentTransaction : contains >
+
+TaskList"1" -- "*"Task : has >
+
+
+
+
+PaymentTransaction"1" -- "1"Freelancer : regarding >
+PaymentTransaction"1" -- "1"Task : regarding >
+PaymentTransaction"1" -- "*"ExecutionTask : has >
+
+ExecutionTask"1" -- "1"Task: has >
+
+Freelancer"1" -- "*"Task : has >
+
+@enduml

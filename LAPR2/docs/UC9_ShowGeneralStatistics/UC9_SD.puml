@@ -1,0 +1,195 @@
+@startuml
+autonumber
+'hide footbox
+actor "T4J administrator" as ADM
+
+participant ":ShowGeneralStatisticsUI" as UI
+participant ":ShowGeneralStatisticsController" as CT
+participant ":Platform" as PL
+participant "fr:\nFreelancerRegister" as FR
+participant "fl:\nList<Freelancer>" as FL
+participant "free:\nFreelancer" as F
+participant "tl:\nTaskList" as TLS
+participant ":CalculateStatistics" as CS
+participant "taskList:\nList<Task>" as TL
+participant "task:\nTask" as T
+participant ":PaymentTransaction" as PT
+participant ":ExecutionTask" as ET
+
+
+
+activate ADM
+
+ADM -> UI : The T4J administrator starts the view of freelancers\nstatistics performance (the mean and\nthe standard deviation of the delays and payments,\nof each one and of all freelancers) and the\nprobability that the sample mean is higher\nthan 3 hours.
+activate UI
+
+
+UI -> CT : getStatisticsEachOne()
+activate CT
+
+
+CT -> PL : fr = getFreelancerRegister()
+activate PL
+PL -> FR : fl = getFreelancerList()
+deactivate PL
+activate FR
+
+loop for all the freelancers
+
+FR -> FL : free = getFreelancer()
+activate FL
+FL -> F : tl = getTaskList()
+activate F
+F -> TLS : taskList = getTaskList(free)
+activate TLS
+deactivate TLS
+deactivate F
+deactivate FR
+deactivate FL
+
+CT -> F : getName()
+activate F
+deactivate F
+
+CT -> CS : md = calculateMeanDelayFreelancer(free)
+activate CS
+
+loop for all tasks
+
+CS -> TL : getTask()
+activate TL
+
+
+TL -> T : getPaymentTransaction()
+activate T
+deactivate TL
+T -> PT : getExecutionTask()
+activate PT
+deactivate T
+PT -> ET : getDelay()
+activate ET
+deactivate ET
+deactivate PT
+
+end
+
+CT -> CS : sddf = calculateStandartDeviationDelayFreelancer(free, md)
+
+CT -> CS : mp = calculateMeanPaymentFreelancer(free)
+
+loop for all tasks
+
+CS -> TL : getTask()
+activate TL
+
+TL -> T : getPaymentTransaction()
+activate T
+T -> PT : getAmount()
+activate PT
+deactivate PT
+deactivate T
+deactivate TL
+end
+
+
+CT -> CS : sdpf = calculateStandartDeviationPaymentFreelancer(free, mp)
+
+deactivate CS
+
+end
+
+
+UI -> CT : getStatisticsAll()
+
+CT -> PL : fr = getFreelancerRegister()
+activate PL
+PL -> FR : fl = getFreelancerList()
+activate FR
+deactivate PL
+
+
+deactivate FR
+
+
+CT -> CS : mda = calculateMeanDelayAll(fl)
+activate CS
+
+loop for all the freelancers
+
+CS -> TL : getTask()
+activate TL
+
+loop for all tasks
+
+TL -> T : getPaymentTransaction()
+activate T
+deactivate TL
+T -> PT : getExecutionTask()
+activate PT
+deactivate T
+PT -> ET : getDelay()
+activate ET
+deactivate ET
+deactivate PT
+
+
+
+end
+end
+
+
+CT -> CS : sdda = calculateStandartDeviationDelayAll(fl, mda)
+
+CT -> CS : mpa = calculateMeanPaymentAll(fl)
+loop for all freelancers
+
+CS -> TL : getTaskList(free)
+activate TL
+
+loop for all tasks
+
+TL -> T : getPaymentTransaction()
+activate T
+T -> PT : getAmount()
+activate PT
+deactivate PT
+deactivate T
+deactivate TL
+
+end
+end
+
+CT -> CS : sdpa = calculateStandartDeviationPaymentAll(fl, mpa)
+
+
+deactivate CS
+
+
+
+deactivate CS
+deactivate CT
+
+
+
+
+
+
+UI --> ADM: The system shows the statistics and ask to choose\none histogram type.
+deactivate UI
+
+ADM -> UI : The T4J administrator choose one option.
+activate UI
+
+UI -> CT : showHistograms()
+activate CT
+CT -> CS : getData(md, sddf, mp, sdpf, mda, sdda, mpa, sdpa)
+activate CS
+deactivate CS
+deactivate CT
+
+UI --> ADM: The system shows the histogram corresponding\nto the selection.
+deactivate UI
+
+deactivate ADM
+
+@enduml

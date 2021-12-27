@@ -1,0 +1,40 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+
+class Platform{
+
+}
+
+
+class Organization{
+-String name
+-String NIF
+}
+
+
+class User{
+-String name
+-String email
+-String password
+-String role
+}
+
+
+
+class Manager{
+-String name
+-String email
+}
+
+
+
+Platform"1" -- "*"Organization : contains >
+
+Organization"1" -- "1"Manager : contains >
+
+Manager"1" -- "1" User : acts like >
+
+@enduml

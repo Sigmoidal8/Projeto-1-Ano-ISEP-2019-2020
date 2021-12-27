@@ -1,0 +1,22 @@
+@startuml
+hide footbox
+autonumber
+actor "Manager" as MAN
+
+participant ":System" as SIST
+
+activate MAN
+    MAN -> SIST : initializes the define automatic payment time
+    activate SIST
+        SIST --> MAN : asks for the data(day,time)
+    deactivate SIST
+    MAN -> SIST : inserts the data
+    activate SIST
+        SIST --> MAN : requires confimation
+    deactivate SIST
+    MAN -> SIST : confirms
+    activate SIST
+        SIST --> MAN : informs the manager of the sucess
+    deactivate SIST
+deactivate MAN
+@enduml

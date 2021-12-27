@@ -1,0 +1,124 @@
+@startuml
+skinparam classAttributeIconSize 0
+top to bottom direction
+
+package Controladores <<Folder>> {
+  class MakePaymentTask
+}
+
+package Domínio <<Folder>> {
+	class Plataform
+    class Freelancer
+    class OrganizationReg
+    class PaymentTransaction
+    class ExternalAlgoritmConvertCurrencies
+    class Task
+    class TaskList
+    class Organization
+    class FreelancerRegister
+}
+
+
+class Plataform {
+  +getFreelancerReg()
+  +enterNewPayment(amount, amountCnv, desc)
+  +getAlgorithmConvert()
+}
+
+class FreelancerRegister {
+	+getListFree()
+}
+
+class Freelancer {
+-String id
+-String name
+-String levelOfExpertise
+-String NIF
+-String IBAN
+-String adress
+-String country
+-String name
++getTaskList()
++getCountry()
+}
+
+class OrganizationReg {
+  +getOrganizationByEmail(email)
+}
+
+class PaymentTransaction {
+-String id
+-Float amount
+-Boolean payed
++getPaymentMade()
++getAmount()
+}
+
+interface ExternalAlgoritmConvertCurrencies{
++getConvertedAmount(amount, country)
+}
+
+class Task {
+-String id
+-String briefDescription
+-Integer timeDuration
+-Float costPerHour
++getPayment()
++getBriefDescription()
++getOrganization()
+}
+
+class TaskList {
++getListTask()
+}
+
+
+class Organization {
+  -String name
+-String id
++schedulePayment(day)
+}
+
+abstract TimerTask {
+  +run()
+}
+
+class MakePaymentTask{
+  +MakePaymentTask()
+  +run()
+  -makePaymentsUnpaid()
+  -writeEmail(amount, amountCnv, desc)
+  -sendEmail(email, free)
+}
+
+TimerTask <|-- MakePaymentTask
+
+MakePaymentTask ..> Organization
+MakePaymentTask ..> FreelancerRegister
+MakePaymentTask ..> Task
+MakePaymentTask ..> PaymentTransaction
+MakePaymentTask ..> ExternalAlgoritmConvertCurrencies
+MakePaymentTask ..> Plataform
+
+Plataform "1" -- "*" OrganizationReg : contains >
+Plataform "1" -- "1" ExternalAlgoritmConvertCurrencies : resort to >
+Plataform "1" -- "*" FreelancerRegister : contains >
+
+OrganizationReg "1" -- "*" Organization : contains >
+
+FreelancerRegister "1" -- "*" Freelancer : contains >
+
+ExternalAlgoritmConvertCurrencies "1" -- "*" PaymentTransaction : converts >
+
+Organization "1" -- "*" PaymentTransaction : contains >
+Organization "1" -- "1" TaskList : contains >
+
+PaymentTransaction "1" -- "1" Task : regarding >
+PaymentTransaction "1" -- "1" Freelancer : regarding >
+PaymentTransaction "1" -- "1" Organization : regarding >
+
+TaskList "1" -- "*" Task : contains >
+
+Freelancer "1" -- "*" Task : has >
+
+@enduml

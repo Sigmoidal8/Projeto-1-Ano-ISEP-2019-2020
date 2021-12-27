@@ -1,0 +1,85 @@
+@startuml
+autonumber
+'hide footbox
+actor "Colaborador de Organização" as ADM
+
+participant ":CreateTaskUI" as UI
+participant ":CreateTaskController" as CTRL
+participant "POTAplication" as _APP
+participant "app\n:POTAplication" as APP
+participant "session\n:UserSeession" as SESSAO
+participant ":Platform" as PLAT
+participant "orgReg\n:OrganizationRegister" as RORGS
+participant "org\n:Organization" as ORG
+participant "tl\n:TaskList" as LTASKS
+participant "task\n:Task" as TAREFA
+
+
+activate ADM
+ADM -> UI : start the task registration.
+activate UI
+UI --> ADM : ask for the task's requirements\n (i.e. id, brief description, time duration, \ncost per hour, task category)
+deactivate UI
+
+ADM -> UI : introduce the requirements.
+activate UI
+
+UI -> CTRL : newTask(id, briefDesc, timeDur,costPH, taskCat)
+activate CTRL
+
+CTRL -> _APP: app = getInstance()
+activate _APP
+|||
+deactivate _APP
+
+CTRL -> APP: session = getActualSession()
+activate APP
+|||
+deactivate APP
+
+CTRL -> SESSAO: email = getUserEmail()
+activate SESSAO
+deactivate SESSAO
+
+CTRL -> PLAT: orgReg = getOrganizationRegister()
+activate PLAT
+deactivate PLAT
+
+CTRL -> RORGS: org = getOrganizationByUserEmail(email)
+activate RORGS
+deactivate RORGS
+
+CTRL -> ORG: tl = getTalkList()
+activate ORG
+deactivate ORG
+
+CTRL -> LTASKS: task = newTask(id, briefDesc, timeDur,costPH, taskCat)
+activate LTASKS
+
+LTASKS --> TAREFA**: create(id, briefDesc, \ntimeDur,costPH, taskCat)
+LTASKS -> LTASKS: validateTask(task)
+
+UI --> ADM: validates and displays the requirements to\n collaborator, asking for a confirmation.
+deactivate LTASKS
+deactivate CTRL
+deactivate UI
+
+ADM -> UI : confirms.
+activate UI
+UI -> CTRL : taskRegister()
+activate CTRL
+
+CTRL -> LTASKS : taskRegister(task)
+activate LTASKS
+
+LTASKS -> LTASKS: validateTask(task)
+LTASKS -> LTASKS: addTask(task)
+
+UI --> ADM : records the requirements and inform\n the collaborator of the operation sucess.
+deactivate LTASKS
+deactivate CTRL
+deactivate UI
+
+deactivate ADM
+
+@enduml

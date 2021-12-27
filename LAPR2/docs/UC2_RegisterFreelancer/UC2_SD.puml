@@ -1,0 +1,54 @@
+@startuml
+autonumber
+
+actor "Collaborator" as COLAB
+participant ":RegisterFreelancerUI" as UI
+participant ":RegisterFreelancerController" as CTRL
+participant ":Platform" as PLAT
+participant "rfree\n:FreelancerRegister" as RFREE
+participant "free\n:freelancer" as FREE
+
+activate COLAB
+COLAB -> UI : start freelancer registration
+activate UI
+
+UI --> COLAB : requests all data (e.g. name, level of expertise, \ne-mail, NIF, bank acount (IBAN), address, country).
+deactivate UI
+
+COLAB -> UI : introduce data
+activate UI
+UI -> CTRL : newFreelancer(name, levelOfExpertise, \ne-mail, NIF, IBAN, address, country);
+activate CTRL
+CTRL -> PLAT : rfree = getFreelancerRegister()
+activate PLAT
+deactivate PLAT
+CTRL -> RFREE: freelacer = newFreelancer(name, levelOfExpertise, e-mail, NIF, IBAN, adress, country);
+activate RFREE
+RFREE -> RFREE : generateId(name)
+RFREE --> FREE **: create(id, name, levelOfExpertise, e-mail, NIF, IBAN, address, country);
+deactivate RFREE
+CTRL -> RFREE: validateFreelancerByEnail(email)
+activate RFREE
+deactivate RFREE
+deactivate CTRL
+deactivate RFREE
+UI --> COLAB : shows freelancer data and asks for confirmation.
+deactivate UI
+
+COLAB -> UI : confirms
+activate UI
+
+UI -> CTRL: registerFreelancer()
+activate CTRL
+CTRL -> RFREE: registerFreelancer(freelancer)
+activate RFREE
+RFREE -> RFREE : validateFreelancer(freelancer)
+RFREE -> RFREE: addFreelancer(freelancer)
+deactivate RFREE
+
+UI --> COLAB: informs the collaborator of the success of the operation
+
+deactivate CTRL
+deactivate UI
+
+@enduml

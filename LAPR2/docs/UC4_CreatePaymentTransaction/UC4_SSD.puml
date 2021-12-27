@@ -1,0 +1,27 @@
+@startuml
+autonumber
+
+actor "Collaborator" as FREE
+participant ":SYSTEM" as UI
+
+activate FREE
+
+FREE -> UI :  starts creating a transaction.
+
+activate UI
+UI --> FREE : Shows the list of tasks and freelancers, asking for the selection of a task \nand a freelancer and asks for details of the execution of a task (e.g. end date, \ndelay, briefDescriptionQuality) and id of payment transaction .
+deactivate UI
+
+FREE -> UI : select a task and a freelancer and introduce all data.
+
+activate UI
+UI --> FREE : shows the amount to be paid to the freelancer and asks for confirmation.
+deactivate UI
+
+FREE -> UI :  confirms.
+
+activate UI
+UI --> FREE :  creates the payment transaction and informs the Collaborator of the success of the operation.
+deactivate UI
+
+@enduml

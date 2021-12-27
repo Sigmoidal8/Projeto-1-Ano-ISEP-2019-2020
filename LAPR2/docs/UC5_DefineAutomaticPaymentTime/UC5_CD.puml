@@ -1,0 +1,103 @@
+@startuml
+skinparam classAttributeIconSize 0
+left to right direction
+
+package UI <<Folder>> {
+  class DefinePaymentTimeUI
+}
+
+package Controladores <<Folder>> {
+  class DefinePaymentTimeController
+  class AplicacaoPOT
+}
+
+package Autorizacao.model <<Folder>>{
+class SessaoUtilizador
+}
+
+
+package Domínio <<Folder>> {
+class Plataform
+class OrganizationReg
+class Manager
+class Organization
+class  TimerTask
+class Timer
+class User
+}
+
+class DefinePaymentTimeUI {
+}
+
+class DefinePaymentTimeController {
+  +getOrg()
+  +validateDate(day,time)
+  +schedulePayment(day,time)
+}
+
+class AplicacaoPOT{
+  +static getInstance()
+  +getSessaoAtual()
+}
+
+class SessaoUtilizador{
+  +getEmailUtilizador()
+}
+
+class Plataform {
+  +getOrganizationReg()
+}
+
+class OrganizationReg {
+  +getOrganizationByEmail(email)
+}
+
+class Manager {
+  -String name
+  -String email
+}
+
+class User{
+-String name
+-String email
+-String password
+-String role
+}
+
+class Organization {
+  -String name
+-String NIF
+  +getManager()
+  +validateDate(day)
+  +schedulePayment(day)
+}
+
+abstract TimerTask {
+  +TimerTask()
+}
+
+class Timer {
+  +Timer()
+  +schedule(task, day)
+  }
+
+DefinePaymentTimeUI ..> DefinePaymentTimeController
+
+DefinePaymentTimeController ..> Plataform
+DefinePaymentTimeController ..> OrganizationReg
+DefinePaymentTimeController ..> SessaoUtilizador
+DefinePaymentTimeController ..> AplicacaoPOT
+
+Plataform "1" -- "*" OrganizationReg : contais >
+
+OrganizationReg "1" --  "*" Organization : contains >
+
+Organization "1" -- "1" Manager : contains >
+Organization "1" -- "1" TimerTask : contains >
+Organization "1" -- "1" Timer : contains >
+
+Timer "*" -- "1" TimerTask : executes >
+
+Manager "1" -- "1" User : acts like >
+
+@enduml

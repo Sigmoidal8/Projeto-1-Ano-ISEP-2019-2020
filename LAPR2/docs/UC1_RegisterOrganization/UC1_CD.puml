@@ -1,0 +1,74 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Collaborator {
+  -String name
+  -String email
+  +Collaborator(name, email)
+  +String getName()
+  +String getEmail()
+}
+
+class Manager {
+  -String name
+  -String email
+  +Manager(name,email)
+  +String getName()
+  +String getEmail()
+}
+
+
+class Organization {
+  -String name
+  -String NIF
+  +Organization(name,Collaborator,Manager)
+  +{static} Collaborator newColaborator(name, email)
+  +{static} Manager newManager(name, email)
+}
+
+class Platform {
+  + RegisterOrganization getRegisterOrganization()
+  + AutorizationFacade getAutorizationFacade()
+  + AlgorithmGeneratePwd getAlgorithmGeneratePwd()
+}
+
+class RegisterOrganization {
+  +Organization newOrganization(name,NIF,nameC,emailC,nameM,emailM)
+  +validateOrganization(Organization org)
+  +registerOrganization(Organization org)
+  -addOrganization(Organization org)
+  -registerCollaboratorAsUser(Collaborator colab)
+  -registerManagerAsUser(Manager man)
+  -sendPwd(String email, String pwd)
+}
+
+class AutorizationFacade {
+   +registerUser(name,email,pwd)
+}
+
+interface AlgorithmGeneratePwd <<interface>>{
+   +String generatePassword(String name, String email)
+}
+
+class RegisterOrganizationController {
+    +newOrganization(name,nameC,emailC,nameM,emailM)
+    +registerOrganization()
+}
+
+class RegisterOrganizationUI {
+}
+
+RegisterOrganizationUI ..> RegisterOrganizationController
+RegisterOrganizationController ..> Platform
+RegisterOrganizationController ..> RegisterOrganization
+RegisterOrganizationController ..> Organization
+
+RegisterOrganization "1" --> "*" Organization : has
+RegisterOrganization ..> Collaborator
+RegisterOrganization ..> Manager
+RegisterOrganization ..> AutorizationFacade
+RegisterOrganization ..> AlgorithmGeneratePwd
+Organization "1" --> "1..*" Collaborator: has
+Organization "1" --> "1" Manager: has
+
+@enduml

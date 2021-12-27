@@ -1,0 +1,22 @@
+@startuml
+autonumber
+actor "Administrator" as UNR
+
+activate UNR
+UNR -> ":System" : register organization
+activate ":System"
+":System" --> UNR : asks for the data about the organization \n(i.e. name, NIF),about the collaborator and about \nthe manager (i.e. name, email)
+deactivate ":System"
+
+UNR -> ":System" : enters the requested data
+activate ":System"
+":System" --> UNR : displays the data, asking confirmation
+deactivate ":System"
+
+UNR -> ":System" : confirms
+activate ":System"
+":System" --> UNR : operation success
+deactivate ":System"
+
+deactivate UNR
+@enduml

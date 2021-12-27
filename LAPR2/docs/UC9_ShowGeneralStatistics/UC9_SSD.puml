@@ -1,0 +1,14 @@
+@startuml
+autonumber
+actor "T4J Administrator" as ADM
+
+activate ADM
+ADM -> ":System" : starts the view of freelancers statistics
+activate ":System"
+":System" --> ADM : shows the statistics (i.e the mean and the standard\n deviation of the delays and payments and the respective histograms)\n and the probability that the sample mean is higher than 3 hours..
+deactivate ":System"
+
+
+deactivate ADM
+
+@enduml

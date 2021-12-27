@@ -1,0 +1,38 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+
+class Platform{
+
+}
+
+class Organization{
+-String name
+-String NIF
+}
+
+class Collaborator {
+ -String name
+ -String email
+}
+
+class Freelancer{
+-String id
+-String name
+-String levelOfExpertise
+-String NIF
+-String IBAN
+-String adress
+-String country
+}
+
+Platform"1" -- "*"Organization : contains >
+Platform"1" -- "0..*"Freelancer : has >
+
+Organization"1" -- "1"Collaborator : contains >
+
+Collaborator"1" -- "*" Freelancer : register >
+
+@enduml

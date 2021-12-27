@@ -1,0 +1,91 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class ShowGeneralStatisticsUI {
+  }
+
+class ShowGeneralStatisticsController {
+  +getStatisticsEachOne()
+  +getStatisticsAll()
+  +showHistograms
+  }
+
+class Platform {
+  +getFreelancerRegister()
+  }
+
+class FreelancerRegister{
+  +getFreelancersList()
+  }
+
+class Freelancer {
+  -String id
+  -String name
+  -String levelOfExpertise
+  -String NIF
+  -String IBAN
+  -String adress
+  -String country
+  +getTaskList()
+  +getName()
+  }
+
+
+class Task {
+  -String id
+  -String briefDescription
+  -Integer timeDuration
+  -Float costPerHour
+  -String taskCategory
+  -Date endDate
+  -Float delay
+  -String briefDescriptionQuality
+  +getPaymentTransaction()
+  }
+
+class PaymentTransaction{
+  -String id
+  -Float amout
+  -Boolean payed
+  +getExecutionTask()
+  +getAmount()
+  }
+
+class ExecutionTask {
+  -Date endDate
+  -Float delay
+  -String briefDescriptionQuality
+  +getDelay()
+  }
+
+class CalculateStatistics {
+  +calculateMeanDelayFreelancer(free)
+  +calculateStandartDeviationDelayFreelancer(free, md)
+  +calculateMeanPaymentFreelancer(free)
+  + calculateStandartDeviationPaymentFreelancer(free, mp)
+  +calculateMeanDelayAll()
+  +calculateStandartDeviationDelayAll(mda)
+  +calculateMeanPaymentAll()
+  +calculateStandartDeviationPaymentAll(mpa)
+  }
+
+ShowGeneralStatisticsUI ..> ShowGeneralStatisticsController
+ShowGeneralStatisticsController ..> Platform
+
+Platform "1" --> "1" FreelancerRegister : contains >
+
+FreelancerRegister "1" --> "0..*" Freelancer : contains >
+
+
+Freelancer "1" --> "1" PaymentTransaction : regarded by >
+Freelancer "1" --> "*" Task : has >
+Freelancer "1..*" --> "1" CalculateStatistics : use >
+
+CalculateStatistics "1"-->"1..*" Task : as >
+
+Task -> PaymentTransaction
+
+PaymentTransaction --> ExecutionTask
+
+
+@enduml

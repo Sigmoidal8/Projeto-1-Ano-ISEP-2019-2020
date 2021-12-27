@@ -1,0 +1,47 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+
+class Platform{
+
+}
+
+class Organization{
+-String name
+-String NIF
+}
+
+class Collaborator {
+ -String name
+ -String email
+}
+
+class User{
+-String name
+-String email
+-String password
+-String role
+}
+
+class Task{
+-String id
+-String briefDescription
+-Integer timeDuration
+-Float costPerHour
+-String taskCategory
+}
+
+
+
+Platform"1" -- "*"Organization : contains >
+
+Organization"1" -- "1"Collaborator : contains >
+
+Organization"1" -- "*"Task : has >
+
+Collaborator"*" -- "1" User : acts like >
+Collaborator"1" -- "0..*" Task : Create >
+
+@enduml

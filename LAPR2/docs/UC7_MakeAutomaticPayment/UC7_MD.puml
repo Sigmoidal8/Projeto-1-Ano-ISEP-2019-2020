@@ -1,0 +1,62 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+
+class Platform{
+
+}
+
+
+class Organization{
+-String name
+-String NIF
+}
+
+
+class PaymentTransaction {
+-String id
+-Float amout
+-Boolean payed
+}
+
+class Task{
+-String id
+-String briefDescription
+-Integer timeDuration
+-Float costPerHour
+}
+
+
+class Freelancer{
+-String id
+-String name
+-String levelOfExpertise
+-String NIF
+-String IBAN
+-String adress
+-String country
+}
+
+
+class ExternalAlgoritmConvertCurrencies{
+
+}
+
+Platform"1" -- "*"Organization : contains >
+Platform"1" -- "1"ExternalAlgoritmConvertCurrencies : resort to >
+Platform"1" -- "0..*"Freelancer : has >
+
+ExternalAlgoritmConvertCurrencies"1" -- "*" PaymentTransaction : convert>
+
+Organization "1" -- "*" PaymentTransaction : contains >
+Organization"1" -- "*"Task : has>
+Organization "1" -- "*" Freelancer : hires >
+
+PaymentTransaction"1" -- "1"Freelancer : regarding >
+PaymentTransaction"1" -- "1"Task : regarding >
+
+Freelancer "1" - "*" Task : has >
+
+@enduml

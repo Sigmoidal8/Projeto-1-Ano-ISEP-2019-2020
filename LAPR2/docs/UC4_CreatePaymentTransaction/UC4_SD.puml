@@ -1,0 +1,100 @@
+@startuml
+autonumber
+
+actor "Collaborator" as FREE
+participant ":CreatePaymentTransactionUI" as UI
+participant ":CreatePaymentTransactionController" as CTRL
+participant "AplicationPOT" as POT
+participant "app\n:AplicationPOT" as APOT
+participant "session\n:UserSession" as SES
+participant ":Platform" as PLAT
+participant "rorg\n:OrganizationRegister" as RORG
+participant "org\n:Organization" as ORG
+participant "tl\n:TaskList" as TL
+participant "fr\n:FreelancerRegister" as FR
+participant "lpt\n:PaymentTransactionList" as LPT
+participant "pt\n:PaymentTransaction" as PT
+participant "et\n:ExecutionTask" as ET
+participant "task\n:Task" as TASK
+participant "free\n:Freelancer" as FRE
+
+activate FREE
+FREE -> UI :  starts creating a transaction.
+activate UI
+UI -> CTRL : tl = getTaskList()
+activate CTRL
+CTRL -> POT : app = getInstance()
+activate POT
+deactivate POT
+CTRL -> APOT : session = getAtualSession()
+activate APOT
+deactivate APOT
+CTRL -> SES : email = getUserEmai()
+activate SES
+deactivate SES
+CTRL -> PLAT : rorg = getOrganizationRegister()
+activate PLAT
+deactivate PLAT
+CTRL -> RORG : org = getOrganizationByEmail(email)
+activate RORG
+deactivate RORG
+CTRL -> ORG : tl = getTaskList()
+activate ORG
+deactivate ORG
+deactivate CTRL
+
+UI -> CTRL : fl = getFreelancersList()
+activate CTRL
+CTRL -> PLAT : rfree = getFreelancerRegister()
+activate PLAT
+deactivate PLAT
+CTRL -> FR : fl = getFreelancersList()
+activate FR
+deactivate FR
+deactivate CTRL
+
+UI --> FREE : Shows the list of tasks and freelancers, asking for the selection of a task \nand a freelancer and asks for details of the execution of a task (e.g. end date, \ndelay, briefDescriptionQuality) and id of payment transaction .
+deactivate UI
+
+
+FREE -> UI : select a task and a freelancer and introduce all data.
+activate UI
+UI -> CTRL : newPaymentTransaction(task,\nfreelancer, transId, endDate, delay, briefDescriptionQuality)
+activate CTRL
+CTRL -> ORG : ptl = getPaymentTransactionList()
+activate ORG
+deactivate ORG
+CTRL -> LPT : pt = newPaymentTransaction(task, freelancer, transId, endDate, delay, briefDescriptionQuality)
+activate LPT
+LPT -> PT ** : create(task, freelancer, transId, endDate, delay, briefDescriptionQuality)
+activate PT
+PT -> ET ** : create(endDate, delay, briefDescriptionQuality)
+deactivate PT
+deactivate LPT
+deactivate CTRL
+UI -> CTRL : amount = calculatePayment(free, task)
+activate CTRL
+CTRL -> PT : amount = calculatePayment(free, task)
+activate PT
+deactivate PT
+deactivate CTRL
+
+
+
+UI --> FREE : shows the amount to be paid to the freelancer and asks for confirmation.
+deactivate UI
+FREE -> UI :  confirms.
+activate UI
+UI -> CTRL : registerPaymentTransaction()
+activate CTRL
+CTRL -> LPT : registerPaymentTransaction(pt)
+activate LPT
+LPT -> LPT : validatePaymentTransaction(pt)
+LPT -> LPT : addPaymentTransaction(pt)
+deactivate LPT
+deactivate CTRL
+
+UI --> FREE :  creates the payment transaction and informs the Collaborator of the success of the operation.
+deactivate UI
+
+@enduml

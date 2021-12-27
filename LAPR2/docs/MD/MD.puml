@@ -1,0 +1,120 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+
+class Platform{
+
+}
+
+class LoadFile{
+
+}
+
+class Organization{
+-String name
+-String NIF
+}
+
+class Administrator{
+
+}
+
+class Collaborator {
+ -String name
+ -String email
+}
+
+class User{
+-String name
+-String email
+-String password
+-String role
+}
+
+class PaymentTransaction {
+-String id
+-Float amout
+-Boolean payed
+}
+
+class Task{
+-String id
+-String briefDescription
+-Integer timeDuration
+-Float costPerHour
+-String taskCategory
+}
+
+class ExecutionTask{
+-Date endDate
+-Float delay
+-String briefDescriptionQuality
+}
+
+class Manager{
+-String name
+-String email
+}
+
+class Freelancer{
+-String id
+-String name
+-String levelOfExpertise
+-String email
+-String NIF
+-String IBAN
+-String adress
+-String country
+}
+
+class ExternalAlgorithmGeneratePwd{
+
+}
+
+class ExternalAlgoritmConvertCurrencies{
+
+}
+
+Platform"1" -- "*"Organization : contains >
+Platform"1" -- "*"Administrator : contains >
+Platform"1" -- "1"ExternalAlgorithmGeneratePwd : resort to >
+Platform"1" -- "1"ExternalAlgoritmConvertCurrencies : resort to >
+Platform"1" -- "0..*"Freelancer : has >
+
+ExternalAlgorithmGeneratePwd"1" -- "*"User : generate password >
+
+Administrator"*" -- "1" User : acts like >
+Administrator"1" -- "*"PaymentTransaction : has access >
+Administrator"1" -- "*"Task : has access >
+
+ExternalAlgoritmConvertCurrencies"1" -- "*" PaymentTransaction : convert >
+
+Organization"1" -- "1"Collaborator : contains >
+Organization"1" -- "*"LoadFile : input >
+Organization"1" -- "1"Manager : contains >
+Organization"1" -- "*"Task : has >
+Organization"1" -- "*"PaymentTransaction : contains >
+
+LoadFile"*" -- "1"Manager : input <
+
+Manager"*" -- "1" User : acts like >
+Manager"1" -- "*"PaymentTransaction : has access >
+Manager"1" -- "*"Task : has access >
+
+Collaborator"1" -- "*" PaymentTransaction : makes >
+Collaborator"*" -- "1" User : acts like >
+Collaborator"1" -- "0..*" Task : Create >
+Collaborator"1" -- "*" Freelancer : register >
+
+
+PaymentTransaction"1" -- "1"Freelancer : regarding >
+PaymentTransaction"1" -- "1"Task : regarding >
+PaymentTransaction"1" -- "*"ExecutionTask : has >
+
+ExecutionTask"1" -- "1"Task: has >
+
+Freelancer"1" -- "*"Task : has >
+
+@enduml

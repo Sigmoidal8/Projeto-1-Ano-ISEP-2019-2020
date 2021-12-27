@@ -1,0 +1,23 @@
+@startuml
+autonumber
+actor "Collaborator" as COL
+
+activate COL
+COL -> ":System" : starts the task registration.
+activate ":System"
+":System" --> COL : asks for the task's requirements (i.e. id, brief description, \n time duration, cost per hour, task category).
+deactivate ":System"
+
+COL -> ":System" : introduces the requirements.
+activate ":System"
+":System" --> COL : validates the requirements and present to the collaborator,\n asking a confirmation.
+deactivate ":System"
+
+COL -> ":System" : confirms the requirements.
+activate ":System"
+":System" --> COL : record the requirements and inform the\n collaborator of the operation sucess.
+deactivate ":System"
+
+deactivate COL
+
+@enduml

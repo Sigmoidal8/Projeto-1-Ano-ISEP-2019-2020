@@ -1,0 +1,58 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package UI <<Folder>> {
+  class RegisterFreelancerUI
+}
+
+package Controllers <<Folder>> {
+  class RegisterFreelancerController
+}
+
+package Domain <<Folder>> {
+class Platform
+class FreelancerRegister
+class Freelancer
+}
+class RegisterFreelancerUI {
+}
+
+class RegisterFreelancerController {
+  +newFreelancer(name, levelOfExpertise e-mail, NIF, IBAN, address, country)
+  +registerFreelancer()
+}
+
+class Platform {
+  +getFreelancerRegister()
+}
+
+class FreelancerRegister {
+  +newFreelancer(name, levelOfExpertise, e-mail, NIF, IBAN, address, country)
+  +generateId(name)
+  +validateFreelancerByEmail(email)
+  +registerFreelancer(freelancer)
+  +validateFreelancer(freelancer)
+  +addFreelancer(freelancer)
+}
+
+class Freelancer{
+-String id
+-String name
+-String levelOfExpertise
+-String NIF
+-String IBAN
+-String adress
+-String country
+}
+
+RegisterFreelancerUI ..> RegisterFreelancerController
+
+RegisterFreelancerController ..> Platform
+RegisterFreelancerController ..> FreelancerRegister
+
+Platform ..> FreelancerRegister
+
+FreelancerRegister"1" -- "1..*" Freelancer : has>
+
+
+@enduml

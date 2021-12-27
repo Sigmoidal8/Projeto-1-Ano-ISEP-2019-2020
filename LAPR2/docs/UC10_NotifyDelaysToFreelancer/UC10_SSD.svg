@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="256px" preserveAspectRatio="none" style="width:505px;height:256px;" version="1.1" viewBox="0 0 505 256" width="505px" zoomAndPan="magnify">
+    <defs>
+        <filter height="300%" id="f76o2k3wjp70s" width="300%" x="-1" y="-1">
+            <feGaussianBlur result="blurOut" stdDeviation="2.0" />
+            <feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0" />
+            <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3" />
+            <feBlend in="SourceGraphic" in2="blurOut3" mode="normal" />
+        </filter>
+    </defs>
+    <g>
+        <rect fill="#FFFFFF" filter="url(#f76o2k3wjp70s)" height="52.3516" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="41" y="97.6094" />
+        <rect fill="#FFFFFF" filter="url(#f76o2k3wjp70s)" height="30" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="459" y="119.9609" />
+        <line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="46" x2="46" y1="87.6094" y2="167.9609" />
+        <line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="464" x2="464" y1="87.6094" y2="167.9609" /><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="70" x="8" y="84.5332">Time/Clock</text>
+        <ellipse cx="46" cy="13" fill="#FEFECE" filter="url(#f76o2k3wjp70s)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 2.0;" />
+        <path d="M46,21 L46,48 M33,29 L59,29 M46,48 L33,63 M46,48 L59,63 " fill="none" filter="url(#f76o2k3wjp70s)" style="stroke: #A80036; stroke-width: 2.0;" /><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="70" x="8" y="181.4941">Time/Clock</text>
+        <ellipse cx="46" cy="194.5703" fill="#FEFECE" filter="url(#f76o2k3wjp70s)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 2.0;" />
+        <path d="M46,202.5703 L46,229.5703 M33,210.5703 L59,210.5703 M46,229.5703 L33,244.5703 M46,229.5703 L59,244.5703 " fill="none" filter="url(#f76o2k3wjp70s)" style="stroke: #A80036; stroke-width: 2.0;" />
+        <rect fill="#FEFECE" filter="url(#f76o2k3wjp70s)" height="31.6094" style="stroke: #A80036; stroke-width: 1.5;" width="64" x="430" y="51" /><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="50" x="437" y="72.5332">:System</text>
+        <rect fill="#FEFECE" filter="url(#f76o2k3wjp70s)" height="31.6094" style="stroke: #A80036; stroke-width: 1.5;" width="64" x="430" y="166.9609" /><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="50" x="437" y="188.4941">:System</text>
+        <rect fill="#FFFFFF" filter="url(#f76o2k3wjp70s)" height="52.3516" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="41" y="97.6094" />
+        <rect fill="#FFFFFF" filter="url(#f76o2k3wjp70s)" height="30" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="459" y="119.9609" />
+        <polygon fill="#A80036" points="447,115.9609,457,119.9609,447,123.9609,451,119.9609" style="stroke: #A80036; stroke-width: 1.0;" />
+        <line style="stroke: #A80036; stroke-width: 1.0;" x1="51" x2="453" y1="119.9609" y2="119.9609" /><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="7" x="58" y="115.1045">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="378" x="69" y="115.1045">starts the automatic notification process on the 31st of December</text>
+        <!--
+@startuml
+autonumber
+actor "Time/Clock" as UNR
+
+activate UNR
+UNR -> ":System" : starts the automatic notification process on the 31st of December
+activate ":System"
+deactivate ":System"
+
+deactivate UNR
+@enduml
+
+PlantUML version 1.2018.14(Fri Dec 21 16:33:16 GMT 2018)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.8.0_241-b07
+Operating System: Windows 10
+OS Version: 10.0
+Default Encoding: Cp1252
+Language: pt
+Country: PT
+-->
+    </g>
+</svg>

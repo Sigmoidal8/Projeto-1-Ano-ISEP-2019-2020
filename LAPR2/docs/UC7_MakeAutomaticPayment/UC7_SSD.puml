@@ -1,0 +1,13 @@
+@startuml
+hide footbox
+autonumber
+actor "Time/Clock" as MAN
+
+participant ":System" as SIST
+
+activate MAN
+    MAN -> SIST : initializes the automatic payment \nfor the unpaid tasks/transactions
+    activate SIST
+    deactivate SIST
+deactivate MAN
+@enduml

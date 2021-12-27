@@ -1,0 +1,55 @@
+@startuml
+hide methods
+left to right direction
+skinparam classAttributeIconSize 0
+
+
+class Platform {
+}
+
+class Freelancer {
+  -String id
+  -String name
+  -String levelOfExpertise
+  -String NIF
+  -String IBAN
+  -String adress
+  -String country
+}
+
+class Task{
+  -String id
+  -String briefDescription
+  -Integer timeDuration
+  -Float costPerHour
+  -String taskCategory
+  -Date endDate
+  -Integer delay
+  -String briefDescriptionQuality
+  }
+
+class PaymentTransaction {
+  -String id
+  -Float amout
+  -Boolean payed
+  }
+
+class ExecutionTask {
+  -Date endDate
+  -Float delay
+  -String briefDescriptionQuality
+  }
+
+class Administrator {
+  }
+
+
+Platform "1" -- "*" Administrator : contains >
+Administrator "1" -- "*" PaymentTransaction: has access >
+Freelancer "1" -- "*" Task: has >
+PaymentTransaction "1" -- "1" Freelancer: regarding >
+PaymentTransaction "1" -- "1" Task: regarding >
+PaymentTransaction "1" -- "*" ExecutionTask: has >
+ExecutionTask "1" -- "1" Task: has >
+
+@enduml

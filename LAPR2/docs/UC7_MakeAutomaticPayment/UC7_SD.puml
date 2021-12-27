@@ -1,0 +1,98 @@
+@startuml
+autonumber
+
+participant "org\n:Organization" as ORG
+participant "task:MakePaymentTask" as TIMER
+participant "t:Timer" as T
+participant "Platform" as PLAT
+participant "org\n:Organization" as ORG
+participant "freReg\n:FreelancerRegister" as FREREG
+participant "lstFree:List<Freelancer>" as LST
+participant "free\n:Freelancer" as FREE
+participant "lstTask:List<Task>" as TASKREG
+participant "task\n:Task" as TASK
+participant "listaObj:List<Task>" as LSTTORG
+participant "orgTask\n:Task" as ORGTASKs
+participant "pay\n:PaymentTransaction" as PAY
+participant "ExternalAlgoritmConvertCurrencies" as EXT
+
+[o-> T : schedule(task, day)
+activate T
+deactivate T
+deactivate ORG
+note over TIMER: After the delay passes
+T -> TIMER : run()
+activate T
+deactivate T
+activate TIMER
+TIMER -> TIMER : makePaymentsUnpaid()
+activate TIMER
+TIMER -> PLAT : freReg = getFreelancerReg()
+activate PLAT
+deactivate PLAT
+TIMER -> FREREG : lstFree = getListFree()
+activate FREREG
+deactivate FREREG
+loop [ until all freelancers are cleared ]
+TIMER -> LST : free = get(i)
+activate LST
+deactivate LST
+TIMER -> FREE : taskReg = getTaskList()
+activate FREE
+deactivate FREE
+loop [ until all tasks are cleared ]
+TIMER -> TASKREG : task = get(j)
+activate TASKREG
+deactivate TASKREG
+TIMER -> ORG : listObj = getTaskList()
+activate ORG
+deactivate ORG
+loop [ until all tasks are cleared ]
+TIMER -> LSTTORG : orgTask = get(k)
+activate LSTTORG
+deactivate LSTTORG
+opt [ task = orgTask ]
+TIMER -> TASK : pay = getPayment()
+activate TASK
+deactivate TASK
+TIMER -> TASK : orgPay = getOrganization()
+activate TASK
+deactivate TASK
+opt [ orgPay = org ]
+TIMER -> PAY : payed = getPaymentMade()
+activate PAY
+deactivate PAY
+opt [ payed = false ]
+TIMER -> PAY : amount = getAmout()
+activate PAY
+deactivate PAY
+TIMER -> FREE : country = getCountry()
+activate FREE
+deactivate FREE
+TIMER -> PLAT : ext = getAlgorithmConvert()
+activate PLAT
+deactivate PLAT
+TIMER -> EXT : amountCnv = getConvertedAmount(amount, country)
+activate EXT
+deactivate EXT
+TIMER -> TASK : desc = getBriefDescripton()
+activate TASK
+deactivate TASK
+TIMER -> TIMER : email = writeEmail(amount, amountCnv, desc)
+activate TIMER
+deactivate TIMER
+TIMER -> PLAT : enterNewPayment(amount, amountCnv, desc)
+activate PLAT
+deactivate PLAT
+end opt
+end opt
+end opt
+end loop
+TIMER -> TIMER : sendEmail(email, free)
+activate TIMER
+deactivate TIMER
+end loop
+deactivate TIMER
+deactivate TIMER
+
+@enduml
