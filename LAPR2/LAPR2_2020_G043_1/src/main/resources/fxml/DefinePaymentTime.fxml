@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.DefinePaymentTimeUI">
+   <center>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="375.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="imgViewImage" fitHeight="375.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
+            <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="375.0" prefWidth="600.0">
+               <children>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label fx:id="lblPayment" text="Payment Date:" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="datePicker" GridPane.columnIndex="1" />
+                        <Label fx:id="lblHour" text="Hour of the day:" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtHour" maxWidth="-Infinity" prefWidth="185.0" promptText="HH:mm:ss" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+               </children>
+            </StackPane>
+         </children>
+      </Pane>
+   </center>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="mnuClose" mnemonicParsing="false" onAction="#mnuCloseAction" text="Close" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <bottom>
+      <Button fx:id="btnConfirm" mnemonicParsing="false" onAction="#btnConfirmAction" text="Confirm" BorderPane.alignment="CENTER_RIGHT">
+         <BorderPane.margin>
+            <Insets bottom="20.0" right="30.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
+</BorderPane>

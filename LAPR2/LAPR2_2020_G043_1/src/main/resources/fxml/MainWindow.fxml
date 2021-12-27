@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.MainWindowUI">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <Menu fx:id="mnuCreate" mnemonicParsing="false" text="Create">
+                    <items>
+                      <MenuItem fx:id="mnuTask" mnemonicParsing="false" onAction="#mnuTaskAction" text="Task" />
+                        <MenuItem fx:id="mnuFreelancer" mnemonicParsing="false" onAction="#mnuFreelancerAction" text="Freelancer" />
+                        <MenuItem fx:id="mnuPayment" mnemonicParsing="false" onAction="#mnuPaymentAction" text="Payment Transaction" />
+                    </items>
+                  </Menu>
+                  <Menu fx:id="mnuShowStatistics" mnemonicParsing="false" text="Show Statistics">
+                    <items>
+                      <MenuItem fx:id="mnuFreelancerPayment" mnemonicParsing="false" onAction="#mnuFreelancerPaymentAction" text="Freelancer Payments" />
+                        <MenuItem fx:id="mnuTaskExecution" mnemonicParsing="false" onAction="#mnuTaskExecutionAction" text="Task Executions Times" />
+                    </items>
+                  </Menu>
+                  <MenuItem fx:id="mnuLoad" mnemonicParsing="false" onAction="#mnuLoadAction" text="Load File" />
+                  <Menu fx:id="mnuSend" mnemonicParsing="false" text="Send">
+                    <items>
+                      <MenuItem fx:id="mnuEnviarEmails" mnemonicParsing="false" onAction="#mnuEnviarEmailsAction" text="Emails regarding the delay" />
+                    </items>
+                  </Menu>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="mnLogout" mnemonicParsing="false" onAction="#mnLogoutAction" text="Logout" />
+                  <MenuItem fx:id="mnuSair" mnemonicParsing="false" onAction="#mnuSairAction" text="Exit" />
+            </items>
+          </Menu>
+          <Menu fx:id="mnuEdit" mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem fx:id="mnuAutomaticPayment" mnemonicParsing="false" onAction="#mnuAutomaticPaymentAction" text="Automatic Payment Time" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem fx:id="mnuAbout" mnemonicParsing="false" onAction="#mnuAboutAction" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="imageview" fitHeight="375.0" fitWidth="600.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="lblName" alignment="TOP_RIGHT" prefHeight="375.0" prefWidth="590.0" />
+            <StackPane layoutX="140.0" layoutY="221.0" prefHeight="150.0" prefWidth="300.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="btnRegisterOrganization" mnemonicParsing="false" onAction="#btnRegisterOrganizationAction" text="Register Organization">
+                           <VBox.margin>
+                              <Insets top="1.0" />
+                           </VBox.margin></Button>
+                        <Button fx:id="btnShowFreelancerStatistics" mnemonicParsing="false" onAction="#btnShowFreelancerStatisticsAction" text="Show Freelancer Statistics" />
+                     </children>
+                     <StackPane.margin>
+                        <Insets />
+                     </StackPane.margin>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </StackPane>
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

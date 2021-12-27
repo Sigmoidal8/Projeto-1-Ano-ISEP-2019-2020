@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.FreelancerPaymentsUI">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="mnuClose" mnemonicParsing="false" onAction="#mnuCloseAction" text="Close" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="375.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="imageView" fitHeight="375.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
+            <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="375.0" prefWidth="600.0">
+               <children>
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="Name ; Mean of Payments ; Standard Deviation of Payments">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="System Bold Italic" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="txtAreaFreelancersList" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="274.0" prefWidth="550.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </TextArea>
+                     </children>
+                     <StackPane.margin>
+                        <Insets bottom="30.0" />
+                     </StackPane.margin>
+                  </VBox>
+               </children>
+            </StackPane>
+         </children>
+      </Pane>
+   </center>
+   <bottom>
+      <HBox prefHeight="33.0" prefWidth="601.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label prefHeight="36.0" prefWidth="145.0" text="Type of sort:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="40.0" right="20.0" />
+               </HBox.margin>
+            </Label>
+            <Button fx:id="btnSortByName" mnemonicParsing="false" onAction="#btnSortByNameAction" prefHeight="30.0" prefWidth="120.0" text="Name">
+               <HBox.margin>
+                  <Insets right="40.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnSortByPaymentValue" mnemonicParsing="false" onAction="#btnSortByPaymentValueAction" prefHeight="30.0" prefWidth="120.0" text="Payment Value">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

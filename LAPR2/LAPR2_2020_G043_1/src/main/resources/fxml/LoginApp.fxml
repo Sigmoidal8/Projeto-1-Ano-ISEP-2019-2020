@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.LoginUI">
+   <top>
+      <Label fx:id="lblApp" text="Welcome to T4J Application" textFill="#280d9e" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Avenir Next Regular" size="24.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets top="25.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
+   <center>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="lblUser" text="Username:" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets bottom="10.0" right="25.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblPass" alignment="CENTER" text="Password:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets right="25.0" top="10.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtUser" maxHeight="-Infinity" maxWidth="-Infinity" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets bottom="10.0" />
+               </GridPane.margin>
+            </TextField>
+            <PasswordField fx:id="txtPass" maxHeight="-Infinity" maxWidth="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets top="10.0" />
+               </GridPane.margin>
+            </PasswordField>
+         </children>
+      </GridPane>
+   </center>
+   <bottom>
+      <VBox alignment="CENTER" prefHeight="100.0" prefWidth="50.0" spacing="30.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lblConfirm" />
+            <Button fx:id="btnConfirmarRegisto" alignment="CENTER" mnemonicParsing="false" onAction="#btnConfirmarRegistoAction" text="Login" />
+         </children>
+      </VBox>
+   </bottom>
+</BorderPane>
